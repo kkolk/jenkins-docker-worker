@@ -1,0 +1,27 @@
+
+{
+  "builders": [
+  {
+    "type": "docker",
+    "run_command": [ "-d", "-t", "-i", "{{.Image}}", "/bin/sh"],
+    "image": "alpine:3.7",
+    "export_path": "containers/ansible-worker.tar",
+    "changes": [
+      "EXPOSE 22"
+    ]
+  }],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apk update",
+        "apk --no-cache add --upgrade wget curl unzip ansible git openssh openjdk8"
+      ]
+    }, 
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/container-setup.yml",
+      "playbook_dir": "ansible"
+    }]
+}
