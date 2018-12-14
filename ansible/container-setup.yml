@@ -21,14 +21,16 @@
       regexp: '^stdout_callback=' 
       line: 'stdout_callback = yaml'
 
+# Default password is currently set to jenkins
+# you may want to consider changing this in the future.
   - name: Add the Jenkins user
     user:
       name: jenkins
-      shell: /bin/bash
+      password: '$6$/tbuN4rpdJrGGRhL$cn1OWS7mwJUrx7ph7pBv8sWhGStZZnN1VC1gvnhFo3RQrvaWU2LwBI7XXENdYykJQwXuSDS1fIJgg1JkERnBC.'
+      shell: /bin/sh
       generate_ssh_key: yes
       ssh_key_bits: 2048
       ssh_key_file: .ssh/id_rsa
-
-    # This password should probably be changed and encrypted.
-  - name: Set the password for the jenkins user
-    shell: echo "jenkins:jenkins" | chpasswd
+      createhome: yes
+      state: present
+      home: /home/jenkins

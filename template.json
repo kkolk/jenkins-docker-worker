@@ -7,7 +7,9 @@
     "image": "alpine:3.7",
     "export_path": "containers/ansible-worker.tar",
     "changes": [
-      "EXPOSE 22"
+      "EXPOSE 22",
+      "LABEL version=1.0",
+      "CMD [\"/usr/sbin/sshd\", \"-D\"]"
     ]
   }],
 
@@ -16,7 +18,8 @@
       "type": "shell",
       "inline": [
         "apk update",
-        "apk --no-cache add --upgrade wget curl unzip ansible git openssh openjdk8 shadow"
+        "apk --no-cache add --upgrade wget curl unzip ansible git openssh openjdk8 shadow",
+        "/usr/bin/ssh-keygen -A"
       ]
     }, 
     {
