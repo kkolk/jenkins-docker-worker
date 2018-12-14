@@ -20,3 +20,15 @@
       path: /etc/ansible/ansible.cfg
       regexp: '^stdout_callback=' 
       line: 'stdout_callback = yaml'
+
+  - name: Add the Jenkins user
+    user:
+      name: jenkins
+      shell: /bin/bash
+      generate_ssh_key: yes
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/id_rsa
+
+    # This password should probably be changed and encrypted.
+  - name: Set the password for the jenkins user
+    shell: echo "jenkins:jenkins" | chpasswd
