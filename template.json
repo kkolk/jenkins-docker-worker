@@ -4,7 +4,7 @@
   {
     "type": "docker",
     "run_command": [ "-d", "-t", "-i", "{{.Image}}", "/bin/sh"],
-    "image": "alpine:3.7",
+    "image": "alpine:latest",
     "export_path": "containers/ansible-worker.tar",
     "changes": [
       "EXPOSE 22",
